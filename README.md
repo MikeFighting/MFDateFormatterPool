@@ -21,7 +21,7 @@ Using the MFDateFormatterPool is very easy：
     NSDateFormatter *mySecondFormatter = [myDateFormatterPool dateFormatterWithFormat:myFormat];
 ```   
 
-## Contat
+## Contact
 
 Please issue me or send emails(wallaceicdi@gmail.com), if you have any problems using this tool. 
 
