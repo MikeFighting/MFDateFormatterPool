@@ -23,7 +23,7 @@ Using the MFDateFormatterPool is very easy：
 
 ## Contact
 
-Please issue me or send emails(wallaceicdi@gmail.com), if you have any problems using this tool. 
+Please issue me, send emails(wallaceicdi@gmail.com) or twitter me(https://twitter.com/MikeFighting), if you have any problems using this tool. 
 
 
 
