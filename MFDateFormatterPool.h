@@ -10,6 +10,8 @@
 
 @interface MFDateFormatterPool : NSObject
 
++ (instancetype)new NS_UNAVAILABLE;
+
 + (instancetype)sharedInstance;
 
 /**
