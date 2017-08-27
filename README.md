@@ -12,6 +12,18 @@ MFDateFormatterPool created the cache by NSCache. The first time you created the
 
 ## How To Use It ?
 
+Using the MFDateFormatterPool is very easy：
+
+```objc
+    MFDateFormatterPool *myDateFormatterPool = [MFDateFormatterPool sharedInstance];
+    NSString *myFormat = @"yyyy:MM:dd HH:mm:ss";
+    NSDateFormatter *myFirstFormatter = [myDateFormatterPool dateFormatterWithFormat:myFormat];
+    NSDateFormatter *mySecondFormatter = [myDateFormatterPool dateFormatterWithFormat:myFormat];
+```   
+
+## Contat
+
+Please issue me or send emails(wallaceicdi@gmail.com), if you have any problems using this tool. 
 
 
 
