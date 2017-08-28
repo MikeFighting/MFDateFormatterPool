@@ -1,10 +1,10 @@
 # MFDateFormatterPool
 
-MFDateFormatterPool is a Cache Pool for NSDateFormatter instance.
+MFDateFormatterPool is a Cache Pool for NSDateFormatter instances.
 
 ## Why do We Need Cache NSDateFormatter ?
 
-Creating the NSDateFormatter and changing the date style or time style is very expensive, [as the experiments done by someone](http://www.chibicode.org/?p=41) . It takes long time to initialize the instance. What we should do is creating each style of date formatter once and use it the whole project.
+Creating the NSDateFormatter or changing the date style or time style is very expensive, [as the experiments done by someone](http://www.chibicode.org/?p=41) . It takes long time to initialize the instance. What we should do is creating each style of date formatter once and use it the whole project.
 
 ## What does MFDateFormatterPool do ?
 
