@@ -3,7 +3,7 @@
 //  BornToTry
 //
 //  Created by Mike on 27/08/2017.
-//  Copyright © 2017 itemei. All rights reserved.
+//  Copyright © 2017 MikeFighting. All rights reserved.
 //
 
 #import "MFDateFormatterPool.h"
@@ -14,6 +14,18 @@
 @property (nonatomic, strong) NSCache *cachedDateFormatters;
 
 @end
+
+static dispatch_semaphore_t _cachePoolLock;
+
+static void _MFCachePoolInitGlobal(){
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        _cachePoolLock = dispatch_semaphore_create(1);
+        
+    });
+}
 
 @implementation MFDateFormatterPool
 
@@ -52,24 +64,21 @@
     
     NSAssert(locale, @"MFDateFormatterPool.m: locale == nil. You can use dateFormatterWithFormat:, if you want to use the current local");
     
-    @synchronized (self) {
-        
-        NSString *formatterKey = [self p_getCacheKeyWithFormat:format andIdentifier:locale.localeIdentifier];
-        NSDateFormatter *dateFormatter = [self.cachedDateFormatters objectForKey:formatterKey];
-        
-        if (dateFormatter != nil) {
-            return dateFormatter;
-        }
-
-        dateFormatter = [[NSDateFormatter alloc]init];
-        dateFormatter.dateFormat = format;
-        dateFormatter.locale = locale ?: [NSLocale currentLocale];
-        [self.cachedDateFormatters setObject:dateFormatter forKey:formatterKey];
-
+    NSString *formatterKey = [self p_getCacheKeyWithFormat:format andIdentifier:locale.localeIdentifier];
+    
+    NSDateFormatter *dateFormatter = [self p_getDateFormatterByKey:formatterKey];
+    if (dateFormatter != nil) {
         return dateFormatter;
     }
-
+    
+    dateFormatter = [[NSDateFormatter alloc]init];
+    dateFormatter.dateFormat = format;
+    dateFormatter.locale = locale ?: [NSLocale currentLocale];
+    [self p_storeDateFormatter:dateFormatter forKey:formatterKey];
+    return dateFormatter;
 }
+
+
 
 - (NSDateFormatter *)dateFormatterWithFormat:(NSString *)format {
 
@@ -83,12 +92,11 @@
 
 - (NSDateFormatter *)dateFormatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle andLocal:(NSLocale *)locale {
 
-    NSAssert(locale, @"MFDateFormatterPool.m: locale == nil. You can use dateFormatterWithDateStyle:andTimeStyle:, if you want to use the current local");
-    @synchronized (self) {
+       NSAssert(locale, @"MFDateFormatterPool.m: locale == nil. You can use dateFormatterWithDateStyle:andTimeStyle:, if you want to use the current local");
+
     
         NSString *formatterKey = [self p_getChaeKeyWithDateStyle:dateStyle timeStyle:timeStyle andLocalIdentifier:locale.localeIdentifier];
-        NSDateFormatter *dateFormatter = [self.cachedDateFormatters objectForKey:formatterKey];
-        
+        NSDateFormatter *dateFormatter = [self p_getDateFormatterByKey:formatterKey];
         if (dateFormatter != nil) {
             return dateFormatter;
         }
@@ -96,11 +104,12 @@
         dateFormatter.dateStyle = dateStyle;
         dateFormatter.timeStyle = timeStyle;
         dateFormatter.locale = locale;
-        [self.cachedDateFormatters setObject:dateFormatter forKey:formatterKey];
+        [self p_storeDateFormatter:dateFormatter forKey:formatterKey];
         return dateFormatter;
-    }
+
 
 }
+
 
 - (NSDateFormatter *)dateFormatterWithDateStyle:(NSDateFormatterStyle)dateStyle andTimeStyle:(NSDateFormatterStyle)timeStyle {
 
@@ -121,4 +130,21 @@
     
 }
 
+- (NSDateFormatter *)p_getDateFormatterByKey:(NSString *)key {
+    
+    dispatch_semaphore_wait(_cachePoolLock, DISPATCH_TIME_FOREVER);
+    NSDateFormatter *dateFormatter = [self.cachedDateFormatters objectForKey:key];
+    dispatch_semaphore_signal(_cachePoolLock);
+    return  dateFormatter;
+}
+
+- (void)p_storeDateFormatter:(NSDateFormatter *)dateFormatter forKey:(NSString *)key {
+    
+    dispatch_semaphore_wait(_cachePoolLock, DISPATCH_TIME_FOREVER);
+    [self.cachedDateFormatters setObject:dateFormatter forKey:key];
+    dispatch_semaphore_signal(_cachePoolLock);
+}
+
 @end
+
+
