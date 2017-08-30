@@ -16,8 +16,8 @@
 		27A5B3B41F56501A00A0A779 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A5B3B31F56501A00A0A779 /* ExampleTests.m */; };
 		27A5B3BF1F56501A00A0A779 /* ExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A5B3BE1F56501A00A0A779 /* ExampleUITests.m */; };
 		27A5B3D31F56502A00A0A779 /* MFDateFormatterPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A5B3CF1F56502900A0A779 /* MFDateFormatterPool.m */; };
-		27A5B3D41F56502A00A0A779 /* MFDateFormatterPoolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A5B3D01F56502900A0A779 /* MFDateFormatterPoolTests.m */; };
 		27A5B3D51F56502A00A0A779 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 27A5B3D11F56502900A0A779 /* README.md */; };
+		27A5B3D81F5656B600A0A779 /* MFDateFormatterPoolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A5B3D01F56502900A0A779 /* MFDateFormatterPoolTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +56,7 @@
 		27A5B3C01F56501A00A0A779 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27A5B3CE1F56502900A0A779 /* MFDateFormatterPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFDateFormatterPool.h; sourceTree = "<group>"; };
 		27A5B3CF1F56502900A0A779 /* MFDateFormatterPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFDateFormatterPool.m; sourceTree = "<group>"; };
-		27A5B3D01F56502900A0A779 /* MFDateFormatterPoolTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFDateFormatterPoolTests.m; sourceTree = "<group>"; };
+		27A5B3D01F56502900A0A779 /* MFDateFormatterPoolTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFDateFormatterPoolTests.m; path = ../MFDateFormatterPool/MFDateFormatterPoolTests.m; sourceTree = "<group>"; };
 		27A5B3D11F56502900A0A779 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +133,7 @@
 		27A5B3B21F56501A00A0A779 /* ExampleTests */ = {
 			isa = PBXGroup;
 			children = (
+				27A5B3D01F56502900A0A779 /* MFDateFormatterPoolTests.m */,
 				27A5B3B31F56501A00A0A779 /* ExampleTests.m */,
 				27A5B3B51F56501A00A0A779 /* Info.plist */,
 			);
@@ -153,7 +154,6 @@
 			children = (
 				27A5B3CE1F56502900A0A779 /* MFDateFormatterPool.h */,
 				27A5B3CF1F56502900A0A779 /* MFDateFormatterPool.m */,
-				27A5B3D01F56502900A0A779 /* MFDateFormatterPoolTests.m */,
 				27A5B3D11F56502900A0A779 /* README.md */,
 			);
 			path = MFDateFormatterPool;
@@ -226,7 +226,8 @@
 				TargetAttributes = {
 					27A5B3951F56501A00A0A779 = {
 						CreatedOnToolsVersion = 8.3.3;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = PQL8K74AUR;
+						ProvisioningStyle = Manual;
 					};
 					27A5B3AE1F56501A00A0A779 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -295,7 +296,6 @@
 				27A5B3A11F56501A00A0A779 /* ViewController.m in Sources */,
 				27A5B39E1F56501A00A0A779 /* AppDelegate.m in Sources */,
 				27A5B3D51F56502A00A0A779 /* README.md in Sources */,
-				27A5B3D41F56502A00A0A779 /* MFDateFormatterPoolTests.m in Sources */,
 				27A5B39B1F56501A00A0A779 /* main.m in Sources */,
 				27A5B3D31F56502A00A0A779 /* MFDateFormatterPool.m in Sources */,
 			);
@@ -306,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27A5B3B41F56501A00A0A779 /* ExampleTests.m in Sources */,
+				27A5B3D81F5656B600A0A779 /* MFDateFormatterPoolTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,10 +449,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = PQL8K74AUR;
 				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mikeFighting.com.Example;
+				PRODUCT_BUNDLE_IDENTIFIER = come.mikefighting.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7ce319e3-e4c1-4896-a5d9-54fd871275f5";
+				PROVISIONING_PROFILE_SPECIFIER = mikeIplan;
 			};
 			name = Debug;
 		};
@@ -459,10 +463,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = PQL8K74AUR;
 				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mikeFighting.com.Example;
+				PRODUCT_BUNDLE_IDENTIFIER = come.mikefighting.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7ce319e3-e4c1-4896-a5d9-54fd871275f5";
+				PROVISIONING_PROFILE_SPECIFIER = mikeIplan;
 			};
 			name = Release;
 		};

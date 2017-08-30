@@ -11,7 +11,8 @@
 
 @interface MFDateFormatterPool()
 
-@property (nonatomic, strong) NSCache *cachedDateFormatters;
+@property (nonatomic, strong) NSMutableDictionary *cachedDateFormatters;
+
 
 @end
 
@@ -36,10 +37,12 @@ static void _MFCachePoolInitGlobal(){
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
+        
         dataFormatter = [[MFDateFormatterPool alloc]init];
         NSCache *dataFormatterCache = [[NSCache alloc]init];
         dataFormatterCache.countLimit = DATAFORMATTER_CACHE_MAX_COUNT;
-        dataFormatter.cachedDateFormatters = dataFormatterCache;
+        dataFormatter.cachedDateFormatters = [NSMutableDictionary dictionary];
+        _MFCachePoolInitGlobal();
     });
     
     return dataFormatter;
@@ -92,7 +95,7 @@ static void _MFCachePoolInitGlobal(){
 
 - (NSDateFormatter *)dateFormatterWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle andLocal:(NSLocale *)locale {
 
-       NSAssert(locale, @"MFDateFormatterPool.m: locale == nil. You can use dateFormatterWithDateStyle:andTimeStyle:, if you want to use the current local");
+        NSAssert(locale, @"MFDateFormatterPool.m: locale == nil. You can use dateFormatterWithDateStyle:andTimeStyle:, if you want to use the current local");
 
     
         NSString *formatterKey = [self p_getChaeKeyWithDateStyle:dateStyle timeStyle:timeStyle andLocalIdentifier:locale.localeIdentifier];
